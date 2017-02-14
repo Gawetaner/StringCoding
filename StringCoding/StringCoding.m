@@ -994,7 +994,7 @@ static void SC_swizzleInstanceMethod(Class c, SEL original, SEL replacement)
     return [self SC_enumValueInDictionary:enumValues prefix:@"nslinebreakby"];
 }
 
-#ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
+#ifdef TARGET_OS_IOS || TARGET_OS_TV
 
 - (CGPoint)CGPointValue
 {
@@ -1287,25 +1287,6 @@ static void SC_swizzleInstanceMethod(Class c, SEL original, SEL replacement)
     return [self SC_enumValueInDictionary:enumValues prefix:@"uitextfieldviewmode"];
 }
 
-- (UIDataDetectorTypes)UIDataDetectorTypesValue
-{
-    static NSDictionary *enumValues = nil;
-    if (enumValues == nil)
-    {
-        enumValues = @{@"phonenumber": @(UIDataDetectorTypePhoneNumber),
-                       @"link": @(UIDataDetectorTypeLink),
-                       @"address": @(UIDataDetectorTypeAddress),
-                       @"calendarevent": @(UIDataDetectorTypeCalendarEvent),
-                       @"none": @(UIDataDetectorTypeNone),
-                       @"all": @(UIDataDetectorTypeNone),
-                       
-                       //added for convenience
-                       @"phone": @(UIDataDetectorTypePhoneNumber),
-                       @"calendar": @(UIDataDetectorTypeCalendarEvent)};
-    }
-    return [self SC_bitmaskValueInDictionary:enumValues prefix:@"uidatadetectortype"];
-}
-
 - (UIScrollViewIndicatorStyle)UIScrollViewIndicatorStyleValue
 {
     static NSDictionary *enumValues = nil;
@@ -1380,23 +1361,6 @@ static void SC_swizzleInstanceMethod(Class c, SEL original, SEL replacement)
     return [self SC_enumValueInDictionary:enumValues prefix:@"uitableviewcellstyle"];
 }
 
-- (UITableViewCellSeparatorStyle)UITableViewCellSeparatorStyleValue
-{
-    static NSDictionary *enumValues = nil;
-    if (enumValues == nil)
-    {
-        enumValues = @{@"none": @(UITableViewCellSeparatorStyleNone),
-                       @"singleline": @(UITableViewCellSeparatorStyleSingleLine),
-                       @"singlelineetched": @(UITableViewCellSeparatorStyleSingleLineEtched),
-                       
-                       //added for convenience
-                       @"line": @(UITableViewCellSeparatorStyleSingleLine),
-                       @"lineetched": @(UITableViewCellSeparatorStyleSingleLineEtched),
-                       @"etchedline": @(UITableViewCellSeparatorStyleSingleLineEtched),
-                       @"etched": @(UITableViewCellSeparatorStyleSingleLineEtched)};
-    }
-    return [self SC_enumValueInDictionary:enumValues prefix:@"uitableviewcellseparatorstyle"];
-}
 
 - (UITableViewCellSelectionStyle)UITableViewCellSelectionStyleValue
 {
@@ -1420,25 +1384,6 @@ static void SC_swizzleInstanceMethod(Class c, SEL original, SEL replacement)
                        @"insert": @(UITableViewCellEditingStyleInsert)};
     }
     return [self SC_enumValueInDictionary:enumValues prefix:@"uitableviewcelleditingstyle"];
-}
-
-- (UITableViewCellAccessoryType)UITableViewCellAccessoryTypeValue
-{
-    static NSDictionary *enumValues = nil;
-    if (enumValues == nil)
-    {
-        enumValues = @{@"none": @(UITableViewCellAccessoryNone),
-                       @"disclosureindicator": @(UITableViewCellAccessoryDisclosureIndicator),
-                       @"disclosurebutton": @(UITableViewCellAccessoryDetailDisclosureButton),
-                       @"checkmark": @(UITableViewCellAccessoryCheckmark),
-                       
-                       //added for convenience
-                       @"disclosurearrow": @(UITableViewCellAccessoryDisclosureIndicator),
-                       @"chevron": @(UITableViewCellAccessoryDisclosureIndicator),
-                       @"button": @(UITableViewCellAccessoryDetailDisclosureButton),
-                       @"tick": @(UITableViewCellAccessoryCheckmark)};
-    }
-    return [self SC_enumValueInDictionary:enumValues prefix:@"uitableviewcellaccessory"];
 }
 
 - (UITableViewCellStateMask)UITableViewCellStateMaskValue
@@ -1480,21 +1425,6 @@ static void SC_swizzleInstanceMethod(Class c, SEL original, SEL replacement)
                        @"addcontact": @(UIButtonTypeContactAdd)};
     }
     return [self SC_enumValueInDictionary:enumValues prefix:@"uibuttontype"];
-}
-
-- (UIBarStyle)UIBarStyleValue
-{
-    static NSDictionary *enumValues = nil;
-    if (enumValues == nil)
-    {
-        enumValues = @{@"default": @(UIBarStyleDefault),
-                       @"black": @(UIBarStyleBlack),
-                       
-                       //deprecated
-                       @"blackopaque": @(UIBarStyleBlackOpaque),
-                       @"blacktranslucent": @(UIBarStyleBlackTranslucent)};
-    }
-    return [self SC_enumValueInDictionary:enumValues prefix:@"uibarstyle"];
 }
 
 - (UIBarMetrics)UIBarMetricsValue
@@ -1574,6 +1504,64 @@ static void SC_swizzleInstanceMethod(Class c, SEL original, SEL replacement)
                        @"mostviewed": @(UITabBarSystemItemMostViewed)};
     }
     return [self SC_enumValueInDictionary:enumValues prefix:@"uitabbarsystemitem"];
+}
+
+#elif TARGET_OS_IOS
+
+- (UIDataDetectorTypes)UIDataDetectorTypesValue
+{
+    static NSDictionary *enumValues = nil;
+    if (enumValues == nil)
+    {
+        enumValues = @{@"phonenumber": @(UIDataDetectorTypePhoneNumber),
+                       @"link": @(UIDataDetectorTypeLink),
+                       @"address": @(UIDataDetectorTypeAddress),
+                       @"calendarevent": @(UIDataDetectorTypeCalendarEvent),
+                       @"none": @(UIDataDetectorTypeNone),
+                       @"all": @(UIDataDetectorTypeNone),
+                       
+                       //added for convenience
+                       @"phone": @(UIDataDetectorTypePhoneNumber),
+                       @"calendar": @(UIDataDetectorTypeCalendarEvent)};
+    }
+    return [self SC_bitmaskValueInDictionary:enumValues prefix:@"uidatadetectortype"];
+}
+
+- (UITableViewCellAccessoryType)UITableViewCellAccessoryTypeValue
+{
+    static NSDictionary *enumValues = nil;
+    if (enumValues == nil)
+    {
+        enumValues = @{@"none": @(UITableViewCellAccessoryNone),
+                       @"disclosureindicator": @(UITableViewCellAccessoryDisclosureIndicator),
+                       @"disclosurebutton": @(UITableViewCellAccessoryDetailDisclosureButton),
+                       @"checkmark": @(UITableViewCellAccessoryCheckmark),
+                       
+                       //added for convenience
+                       @"disclosurearrow": @(UITableViewCellAccessoryDisclosureIndicator),
+                       @"chevron": @(UITableViewCellAccessoryDisclosureIndicator),
+                       @"button": @(UITableViewCellAccessoryDetailDisclosureButton),
+                       @"tick": @(UITableViewCellAccessoryCheckmark)};
+    }
+    return [self SC_enumValueInDictionary:enumValues prefix:@"uitableviewcellaccessory"];
+}
+
+- (UITableViewCellSeparatorStyle)UITableViewCellSeparatorStyleValue
+{
+    static NSDictionary *enumValues = nil;
+    if (enumValues == nil)
+    {
+        enumValues = @{@"none": @(UITableViewCellSeparatorStyleNone),
+                       @"singleline": @(UITableViewCellSeparatorStyleSingleLine),
+                       @"singlelineetched": @(UITableViewCellSeparatorStyleSingleLineEtched),
+                       
+                       //added for convenience
+                       @"line": @(UITableViewCellSeparatorStyleSingleLine),
+                       @"lineetched": @(UITableViewCellSeparatorStyleSingleLineEtched),
+                       @"etchedline": @(UITableViewCellSeparatorStyleSingleLineEtched),
+                       @"etched": @(UITableViewCellSeparatorStyleSingleLineEtched)};
+    }
+    return [self SC_enumValueInDictionary:enumValues prefix:@"uitableviewcellseparatorstyle"];
 }
 
 #else
@@ -1930,6 +1918,8 @@ static void SC_swizzleInstanceMethod(Class c, SEL original, SEL replacement)
 
 @end
 
+#if TARGET_OS_IOS
+
 @implementation UIToolbar (StringValues)
 
 - (NSString *)SC_typeNameForKey:(NSString *)key
@@ -1945,6 +1935,8 @@ static void SC_swizzleInstanceMethod(Class c, SEL original, SEL replacement)
 //TODO: work out system for setting property for state, style AND metrics
 
 @end
+
+#endif
 
 @implementation UINavigationBar (StringValues)
 
@@ -2032,19 +2024,25 @@ static void SC_swizzleInstanceMethod(Class c, SEL original, SEL replacement)
 
 - (void)SC_setFinishedSelectedImageWithString:(NSString *)string
 {
+#if TARGET_OS_IOS
     [self setFinishedSelectedImage:[string UIImageValue]
        withFinishedUnselectedImage:[self finishedUnselectedImage]];
+#endif
 }
 
 - (void)SC_setFinishedUnselectedImageWithString:(NSString *)string
 {
+#if TARGET_OS_IOS
     [self setFinishedSelectedImage:[self finishedSelectedImage]
        withFinishedUnselectedImage:[string UIImageValue]];
+#endif
 }
 
 #pragma GCC diagnostic pop
 
 @end
+
+#if TARGET_OS_IOS
 
 @implementation UIWebView (StringValues)
 
@@ -2069,5 +2067,7 @@ static void SC_swizzleInstanceMethod(Class c, SEL original, SEL replacement)
 }
 
 @end
+
+#endif
 
 #endif

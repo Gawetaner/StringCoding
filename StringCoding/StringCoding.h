@@ -82,7 +82,7 @@ extern NSString *const StringCodingErrorDomain;
 - (NSTextAlignment)NSTextAlignmentValue;
 - (NSLineBreakMode)NSLineBreakModeValue;
 
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IOS || TARGET_OS_TV
 
 - (UIColor *)UIColorValue;
 - (UIImage *)UIImageValue;
@@ -99,7 +99,6 @@ extern NSString *const StringCodingErrorDomain;
 
 - (UITextBorderStyle)UITextBorderStyleValue;
 - (UITextFieldViewMode)UITextFieldViewModeValue;
-- (UIDataDetectorTypes)UIDataDetectorTypesValue;
 
 - (UIScrollViewIndicatorStyle)UIScrollViewIndicatorStyleValue;
 
@@ -107,7 +106,6 @@ extern NSString *const StringCodingErrorDomain;
 - (UITableViewScrollPosition)UITableViewScrollPositionValue;
 - (UITableViewRowAnimation)UITableViewRowAnimationValue;
 - (UITableViewCellStyle)UITableViewCellStyleValue;
-- (UITableViewCellSeparatorStyle)UITableViewCellSeparatorStyleValue;
 - (UITableViewCellSelectionStyle)UITableViewCellSelectionStyleValue;
 - (UITableViewCellEditingStyle)UITableViewCellEditingStyleValue;
 - (UITableViewCellAccessoryType)UITableViewCellAccessoryTypeValue;
@@ -115,11 +113,15 @@ extern NSString *const StringCodingErrorDomain;
 
 - (UIButtonType)UIButtonTypeValue;
 
-- (UIBarStyle)UIBarStyleValue;
 - (UIBarMetrics)UIBarMetricsValue;
 - (UIBarButtonItemStyle)UIBarButtonItemStyleValue;
 - (UIBarButtonSystemItem)UIBarButtonSystemItemValue;
 - (UITabBarSystemItem)UITabBarSystemItemValue;
+
+#elif TARGET_OS_IOS
+
+- (UITableViewCellSeparatorStyle)UITableViewCellSeparatorStyleValue;
+- (UIBarStyle)UIBarStyleValue;
 
 #else
 
